@@ -32,9 +32,8 @@ type ElementType = 'text' | 'stationery' | 'shape';
 
 const STICKERS = [
   '🎨', '✍️', '✉️', '📔', '📎', '📌', '🏷️', '🖍️', 
-  '🌸', '🌿', '🍄', '📐', '☕', '🕯️', '📚', '🖌',
-  '🦋', '📍', '㊗', '✂', '📄', '🐾', '📱', '📸', 
-  '📖', '🖱', '💻', '⌨', '📀', '🖇', '📏', '🖊'
+  '🌸', '🌿', '🍄', '🥐', '☕', '🕯️', '🎻', '🏛️',
+  '🦋', '🦢', '✨', '🌙', '☁️', '🎈', '🎁', '📸'
 ];
 
 const TEXTURES = [
@@ -98,8 +97,10 @@ const COLORS = [
 const STATIONERY_ASSETS = [
   { id: 'clipboard', label: 'Clipboard', type: 'base' },
   { id: 'notepad', label: 'Note Pad', type: 'base' },
+  { id: 'spiral_notebook', label: 'Blocknote Spirale', type: 'base' },
   { id: 'paper_scrap', label: 'Foglio Strappato', type: 'base' },
   { id: 'pencil', label: 'Matita', type: 'deco' },
+  { id: 'pen', label: 'Penna', type: 'deco' },
   { id: 'paperclip', label: 'Graffetta', type: 'deco' },
   { id: 'washi_tape', label: 'Washi Tape', type: 'deco' },
   { id: 'stamp', label: 'Timbro', type: 'deco' },
@@ -164,6 +165,26 @@ const StationeryGraphic = ({ type, color }: { type: string, color?: string }) =>
           <rect x="20" y="50" width="4" height="270" fill="#FFEDF4" />
         </svg>
       );
+    case 'spiral_notebook':
+      return (
+        <svg width="300" height="380" viewBox="0 0 300 380" fill="none" xmlns="http://www.w3.org/2000/svg">
+          {/* Cover */}
+          <rect x="10" y="0" width="290" height="380" rx="4" fill={color || '#A8B7A3'} />
+          <rect x="25" y="15" width="260" height="350" rx="2" fill="#FFFFFF" />
+          {/* Spirals */}
+          {[...Array(12)].map((_, i) => (
+            <g key={i}>
+              <rect x="0" y={30 + i * 28} width="20" height="6" rx="3" fill="#9CA3AF" />
+              <rect x="0" y={32 + i * 28} width="20" height="2" rx="1" fill="#D1D5DB" />
+              <circle cx="20" cy={33 + i * 28} r="3" fill="#D1D5DB" />
+            </g>
+          ))}
+          {/* Lines */}
+          {[...Array(15)].map((_, i) => (
+            <line key={i} x1="45" y1={50 + i * 20} x2="265" y2={50 + i * 20} stroke="#F3F4F6" strokeWidth="1.2" />
+          ))}
+        </svg>
+      );
     case 'pencil':
       return (
         <svg width="220" height="18" viewBox="0 0 220 18" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -171,6 +192,17 @@ const StationeryGraphic = ({ type, color }: { type: string, color?: string }) =>
           <path d="M190 0L220 9L190 18V0Z" fill="#FFD4B2" />
           <path d="M214 6L220 9L214 12V6Z" fill="#1A1A1A" />
           <rect width="190" height="2" y="4" fill="white" fillOpacity="0.3" />
+        </svg>
+      );
+    case 'pen':
+      return (
+        <svg width="220" height="14" viewBox="0 0 220 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <rect x="0" y="2" width="160" height="10" rx="5" fill={color || '#1A1A1A'} />
+          <rect x="150" y="2" width="40" height="10" rx="2" fill={color || '#1A1A1A'} />
+          <path d="M190 2L220 7L190 12V2Z" fill="#D1D5DB" />
+          <path d="M215 6.2L220 7L215 7.8V6.2Z" fill="#1A1A1A" />
+          <rect x="140" y="2" width="10" height="10" fill="#D4AF37" /> {/* Gold ring */}
+          <rect x="20" y="4" width="30" height="1" fill="white" fillOpacity="0.3" />
         </svg>
       );
     case 'paper_scrap':
